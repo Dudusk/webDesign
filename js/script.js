@@ -1,7 +1,7 @@
-initMap();
-
-
 function initMap() {
+	var lati = position.coords.latitude;
+	var longi =  position.coords.longitude;
+
 	var map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 43.529742, lng: 5.4474270000000615},
 		zoom: 12
@@ -26,6 +26,9 @@ function initMap() {
 		// WebBrowser supporte pas géolocalisation
 		handleLocationError(false, infoWindow, map.getCenter());
 	}
+
+	
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
