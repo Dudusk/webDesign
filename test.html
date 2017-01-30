@@ -37,16 +37,17 @@
             lng: position.coords.longitude
           };
 
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("T'es ici uesh.");
-          map.setCenter(pos);
-          console.log(pos);
-
           var longi = position.coords.longitude;
           var lati = position.coords.latitude;
 
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("T'es ici uesh." + "<br />Longitude : " + longi + "<br />Latitude : " + lati);
+          map.setCenter(pos);
+          console.log(pos);
+
           document.getElementById("test").innerHTML = "Latitude : " + lati;
           document.getElementById("test").innerHTML += "<br />Longitude : " + longi;
+
         }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
         });
