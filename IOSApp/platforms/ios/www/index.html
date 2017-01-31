@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" /> 
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 70%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+    var pos;
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 43.529742, lng: 5.4474270000000615},
+        zoom: 12
+      });
+      var infoWindow = new google.maps.InfoWindow({map: map});
+      
+      // Test de fonctionnement
+      if (navigator.geolocation) {
+        
+        navigator.geolocation.getCurrentPosition(function(position) {
+          pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          var longi = position.coords.longitude;
+          var lati = position.coords.latitude;
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("T'es ici uesh." + "<br />Longitude : " + longi + "<br />Latitude : " + lati);
+          map.setCenter(pos);
+          console.log(pos);
+
+          document.getElementById("test").innerHTML = "Latitude : " + lati;
+          document.getElementById("test").innerHTML += "<br />Longitude : " + longi;
+
+        }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+        
+      } else {
+        // WebBrowser supporte pas géolocalisation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+
+    }
+
+    
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+                            'Error: Le service de géolocalisation ne fonctionne pas.' :
+                            'Error: WebBrowser ne supporte pas la géolocalisation.');
+    }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYScH5SmflGCJmDtwFoXtKZ5VQoGfNkqI&signed_in=true&callback=initMap"
+        async defer>
+    </script>
+
+    <div id="test">
+      Lamasticot
+    </div>
+  </body>
+</html>
